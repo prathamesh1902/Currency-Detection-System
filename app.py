@@ -6,6 +6,8 @@ from tensorflow.keras.preprocessing import image
 from gtts import gTTS
 import tempfile
 import base64
+import gdown
+import os
 
 # Configure the page
 st.set_page_config(page_title="Indian Currency Classifier", layout="centered")
@@ -13,6 +15,13 @@ st.title("Indian Currency Classifier with Auto-Voice Note")
 
 # Image dimensions (must match your training)
 IMG_SIZE = (224, 224)
+
+# Download model from Google Drive if not present
+if not os.path.exists('final_currency_models.keras'):
+    st.info("Downloading model from Google Drive...")
+    file_id = '1GPoUpQB5i6FYonCg90idoCN-J8KT3jWY'
+    gdown.download(f'https://drive.google.com/uc?id={file_id}', 'final_currency_models.keras', quiet=False)
+    st.success("Model downloaded successfully!")
 
 def load_trained_model():
     st.info("Loading model...")
